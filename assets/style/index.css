@@ -47,6 +47,9 @@ section{
     grid-column: 2;
     grid-row: 1 / -1;
     border: solid 1px black;
+    margin: 0 25px;
+    border: solid 2px #c82a0e;
+    border-radius: 15px;
 }
 
 /* game interface JS*/
@@ -68,6 +71,7 @@ section{
     border: solid 2px #c82a0e;
     border-radius: 15px;
 }
+*/
 
 .play-btn{
     font-size: 85px;
@@ -80,4 +84,4 @@ section{
 
 .play-btn:hover{
     background: radial-gradient(circle, rgb(200,42,14) 70%, rgb(140,40,24) 95%);
-} */
+} 
