@@ -1,7 +1,7 @@
 <nav>   
     <ul id="flex-container">
         <li class="d-flex" id="logo-el">
-            <img id="logo" height="90px" src="assets/images/logo_motus.jpg" alt="logo">
+            <img id="logo" height="90px" src="assets/images/logo_botus.jpg" alt="logo">
         </li>
         <li class="d-flex" id="discord">
             <a class="user-link" href="https://discord.gg/Rk8bPZRF" target="_blank">
@@ -16,5 +16,4 @@
             </a>
         </li>
     </ul>
-    test
 </nav>
