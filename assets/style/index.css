@@ -8,8 +8,12 @@ body{
     background-color: #e5e5e5;
 }
 
+main{
+    height: 80svh;
+}
+
 section{
-    height: 80vh;
+    height: 100%;
     margin: 50px 25px;
     display: grid;
     grid-template-columns: 300px auto;

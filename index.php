@@ -33,5 +33,8 @@
         </section>
     </main>
 
+    <!-- footer -->
+    <?php require("footer.php") ?>
+
 </body>
 </html>
