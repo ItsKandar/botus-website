@@ -1,2 +1,2 @@
 # botus-website
-site web pour botus
+site web pour jouer a botus !
