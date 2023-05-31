@@ -8,11 +8,6 @@ body{
     background-color: #e5e5e5;
 }
 
-/* section{
-    margin: 50px 0 0 25px;
-    display: flex;
-} */
-
 section{
     height: 80vh;
     margin: 50px 25px;
@@ -20,13 +15,11 @@ section{
     grid-template-columns: 300px auto;
     grid-template-rows: 10fr 7fr;
     grid-gap: 25px;
-    /* border: solid 1px black; */
 }
 
 .leaderboard{
     grid-column: 1;
     grid-row: 1;
-    border: solid 1px black;
     text-align: center;
     border: solid 2px #c82a0e;
     border-radius: 10px;
@@ -35,7 +28,6 @@ section{
 .widget{
     grid-column: 1;
     grid-row: 2;
-    border: solid 1px black;
 }
 
 .widget-ds{
@@ -50,28 +42,11 @@ section{
     margin: 0 25px;
     border: solid 2px #c82a0e;
     border-radius: 15px;
-}
-
-/* game interface JS*/
-/* .game{
-    height: 80vh;
-    width: 100%;
-    margin: 0 100px;
-    border: solid 1px black;
-    border-radius: 10px;
-} */
-
-/* .game{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80vh;
-    width: 100%;
-    margin: 0 100px;
-    border: solid 2px #c82a0e;
-    border-radius: 15px;
+
 }
-*/
 
 .play-btn{
     font-size: 85px;
