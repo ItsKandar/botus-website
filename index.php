@@ -20,12 +20,10 @@
 
     <main>
         <section>
-            
-            <div class="leaderboard">
-                <h2>Leaderboard</h2>
-                <div>
-                    <iframe src="https://discord.com/widget?id=1087078666850287766&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
-                </div>
+
+            <h2 class="leaderboard">Leaderboard</h2>
+            <div class="widget">
+                <iframe class="widget-ds" src="https://discord.com/widget?id=1087078666850287766&theme=dark" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
             </div>
 
             <div class="game">
