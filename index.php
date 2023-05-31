@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poller+One&display=swap" rel="stylesheet">
     <title>BOTUS</title>
 </head>
-<body>
+<body>aeaageag
 
     <header>
         <?php require("navbar.php") ?>
