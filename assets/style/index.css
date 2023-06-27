@@ -8,42 +8,48 @@ body{
     background-color: #e5e5e5;
 }
 
+main{
+    height: 80svh;
+}
+
 section{
-    margin: 50px 0 0 25px;
-    display: flex;
+    height: 100%;
+    margin: 50px 25px;
+    display: grid;
+    grid-template-columns: 300px auto;
+    grid-template-rows: 10fr 7fr;
+    grid-gap: 25px;
 }
 
 .leaderboard{
-    height: 80vh;
-    width: 300px;
+    grid-column: 1;
+    grid-row: 1;
     text-align: center;
-    /* border: solid 2px #c82a0e; */
+    border: solid 2px #c82a0e;
     border-radius: 10px;
 }
 
-h2{
-    margin-top: 10px;
+.widget{
+    grid-column: 1;
+    grid-row: 2;
 }
 
-
-/* game interface JS*/
-/* .game{
-    height: 80vh;
+.widget-ds{
+    height: 100%;
     width: 100%;
-    margin: 0 100px;
-    border: solid 1px black;
-    border-radius: 10px;
-} */
+}
 
 .game{
+    grid-column: 2;
+    grid-row: 1 / -1;
+    border: solid 1px black;
+    margin: 0 25px;
+    border: solid 2px #c82a0e;
+    border-radius: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80vh;
-    width: 100%;
-    margin: 0 100px;
-    border: solid 2px #c82a0e;
-    border-radius: 15px;
+
 }
 
 .play-btn{
@@ -57,4 +63,4 @@ h2{
 
 .play-btn:hover{
     background: radial-gradient(circle, rgb(200,42,14) 70%, rgb(140,40,24) 95%);
-}
+} 

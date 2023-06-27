@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style/navbar.css">
-    <link rel="stylesheet" href="style/index.css">    
+    <link rel="stylesheet" href="assets/style/navbar.css">
+    <link rel="stylesheet" href="assets/style/index.css">    
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,12 +20,10 @@
 
     <main>
         <section>
-            
-            <div class="leaderboard">
-                <h2>Leaderboard</h2>
-                <div>
-                    <iframe src="https://discord.com/widget?id=1087078666850287766&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
-                </div>
+
+            <h2 class="leaderboard">Leaderboard</h2>
+            <div class="widget">
+                <iframe class="widget-ds" src="https://discord.com/widget?id=1087078666850287766&theme=dark" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
             </div>
 
             <div class="game">
@@ -34,6 +32,11 @@
 
         </section>
     </main>
-         
+
+    <!-- footer -->
+    <?php require("footer.php") ?>
+
 </body>
+<script src="assets/js/game.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
 </html>
