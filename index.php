@@ -27,7 +27,10 @@
             </div>
 
             <div class="game">
-                <button class="play-btn">PLAY</button>
+                <div id="attempt-count">Tentatives: </div>
+                <div id="box"></div>
+                <button class="play-btn" onclick="startGame()">PLAY</button>
+
             </div>
 
         </section>

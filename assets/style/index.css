@@ -1,18 +1,20 @@
-*, ::before, ::after{
+*,
+::before,
+::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body{
+body {
     background-color: #e5e5e5;
 }
 
-main{
+main {
     height: 80svh;
 }
 
-section{
+section {
     height: 100%;
     margin: 50px 25px;
     display: grid;
@@ -21,7 +23,7 @@ section{
     grid-gap: 25px;
 }
 
-.leaderboard{
+.leaderboard {
     grid-column: 1;
     grid-row: 1;
     text-align: center;
@@ -29,17 +31,17 @@ section{
     border-radius: 10px;
 }
 
-.widget{
+.widget {
     grid-column: 1;
     grid-row: 2;
 }
 
-.widget-ds{
+.widget-ds {
     height: 100%;
     width: 100%;
 }
 
-.game{
+.game {
     grid-column: 2;
     grid-row: 1 / -1;
     border: solid 1px black;
@@ -49,18 +51,48 @@ section{
     display: flex;
     justify-content: center;
     align-items: center;
-
+    display: flex;
+    flex-direction: column;
 }
 
-.play-btn{
+.play-btn {
     font-size: 85px;
     padding: 40px 60px;
     font-family: 'Poller One', cursive;
     border: none;
     border-radius: 15px;
-    background: radial-gradient(circle, rgb(230,43,9) 0%, rgb(200,42,14) 100%);
+    background: radial-gradient(circle, rgb(230, 43, 9) 0%, rgb(200, 42, 14) 100%);
 }
 
-.play-btn:hover{
-    background: radial-gradient(circle, rgb(200,42,14) 70%, rgb(140,40,24) 95%);
-} 
+.play-btn:hover {
+    background: radial-gradient(circle, rgb(200, 42, 14) 70%, rgb(140, 40, 24) 95%);
+}
+
+#attempt-count {
+    width: 100%;
+    margin-left: 20px;
+}
+
+.letter {
+    min-height: 70px;
+    min-width: 70px;
+    max-width: 70px;
+    background-color: #b4adad;
+    margin: 10px;
+    border: 0.5px black solid;
+    border-radius: 15px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.correct {
+    background-color: green;
+}
+
+.exists {
+    background-color: yellow;
+}
+
+.wrong {
+    background-color: red;
+}
