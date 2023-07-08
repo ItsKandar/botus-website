@@ -1,58 +1,56 @@
-*,
-::before,
-::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
     background-color: #e5e5e5;
 }
 
-main {
-    height: 80svh;
-}
-
-section {
-    min-height: 100%;
-    margin: 50px 25px;
-    display: grid;
-    grid-template-columns: 300px auto;
-    grid-template-rows: 10fr 7fr;
-    grid-gap: 25px;
-}
-
-.leaderboard {
-    grid-column: 1;
-    grid-row: 1;
-    text-align: center;
-    border: solid 2px #c82a0e;
-    border-radius: 10px;
-}
-
-.widget {
-    grid-column: 1;
-    grid-row: 2;
-}
-
 .widget-ds {
     height: 100%;
-    width: 100%;
 }
-
 .game {
-    grid-column: 2;
-    grid-row: 1 / -1;
-    border: solid 1px black;
-    margin: 0 25px;
+    min-height: 600px;
     border: solid 2px #c82a0e;
     border-radius: 15px;
-    display: flex;
+    color: white;
+}
+
+#info{
+    color: white;
+    background-color: grey;
+    border-radius: 100px;
+    border: solid 1px black;
+    height: 40px;
+    width: 40px;
+    text-align: center;
     justify-content: center;
-    align-items: center;
     display: flex;
-    flex-direction: column;
+    margin: 10px;
+    padding: 5px;
+}
+#info:hover {
+    cursor: pointer;
+    background-color: red;
+    transition: all 0.5s ;
+}
+
+.help-letter-container {
+    border: 1px grey solid;
+    border-radius: 5px;
+    align-items: center;
+    margin: 5px;
+    padding: 3px;
+    height: 40px;
+    width: 40px;
+}
+
+.span-correct {
+    color: red;
+}
+
+.span-exists {
+    color: yellow;
+}
+
+.span-wrong {
+    color: blue;
 }
 
 .play-btn {
@@ -71,14 +69,16 @@ section {
 #attempt-count {
     display: flex;
     width: 100%;
-    margin-left: 20px;
+    justify-content: center;
+    bottom: 0;
 }
 
 .letter {
     min-height: 70px;
     min-width: 70px;
     max-width: 70px;
-    background-color: #b4adad;
+    background-color: #6b9aeb;
+    color: white;
     margin: 10px;
     border: 0.5px black solid;
     border-radius: 15px;
@@ -87,7 +87,7 @@ section {
 }
 
 .correct {
-    background-color: green;
+    background-color: red;
 }
 
 .exists {
@@ -95,5 +95,5 @@ section {
 }
 
 .wrong {
-    background-color: red;
+    background-color: blue;
 }

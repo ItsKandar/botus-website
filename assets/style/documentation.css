@@ -1,0 +1,11 @@
+.span-correct {
+    color: red;
+}
+
+.span-exists {
+    color: yellow;
+}
+
+.span-wrong {
+    color: black;
+}
