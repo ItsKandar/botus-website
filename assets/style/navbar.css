@@ -5,10 +5,18 @@ nav{
 
 nav p{
     color: whitesmoke;
+    font-weight: bold;
+    font-size: 21px;
 }
 
 nav li>a>p{
-    margin-top: 18px;
+    margin-top: 15px;
+    border-bottom: solid .25px whitesmoke ;
+    padding: 5px;
+}
+
+nav li>a>p:hover{
+    
 }
 
 #logo {

@@ -867,12 +867,18 @@ function checkWord(row) {
 function startGame() {
     $(".play-btn").fadeOut("slow");
     $('.game').removeClass("justify-content-center");
-    $(".game").css({ justifyContent: "space-between", backgroundColor: "#2337d0" });
+    $(".game").css({    justifyContent: "space-between",
+                        backgroundColor: "#e5e5e5", 
+                        border: "solid 1px gray",
+                        borderRadius: "10px",
+                        color: "black",
+                        fontWeight: "bold",
+                        fontSize: "25px"});
 
     var div = document.createElement("div");
     div.setAttribute("id", "attempt-count");
     $(".game").append(div);
-    div.innerHTML = "tentatives: <p></p> /6";
+    div.innerHTML = "tentatives : <p></p> /6";
 
     chooseWord();
 }

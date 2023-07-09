@@ -34,19 +34,19 @@
       <li class="nav-item">
         <a class="nav-link" href="https://discord.gg/7b7sHAG4fY" target="_blank">
           <div class="icons-layout">
-            <img height="30px" src="assets/images/discord-logo.png" width="45px" alt="lien utilisateur">
+            <img height="30px" src="assets/images/white-discord-logo.png" width="45px" alt="lien utilisateur">
             <p>Nous rejoindre</p>
-          </div>  
+          </div>
         </a>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a href="./account.php" class="nav-link">
           <div class="icons-layout">
             <img height="30px" src="assets/images/user.svg" alt="lien utilisateur">
             <p>Mon compte</p>
           </div>  
         </a>
-      </li>
+      </li> -->
     </ul>
   </div>
 </nav>

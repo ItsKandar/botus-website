@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/style/navbar.css">
     <link rel="stylesheet" href="assets/style/documentation.css">
+    <link rel="stylesheet" href="assets/style/footer.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,7 +21,8 @@
     <header>
         <?php require("navbar.php") ?>
     </header>
-    <main class="d-flex flex-column">
+
+    <main class="d-flex flex-column container">
         <div class="card m-3">
             <div class="card-body">
                 <h1 class="card-title">Introduction</h1>
@@ -44,27 +46,27 @@
         </div>
 
         <div class="card m-3">
-            <div class="card-body">
+            <div class="card-body cmd">
                 <h1 class="card-title">Les commandes</h1>
                 <h4>Commandes admin: </h4>
                 <ul>
-                    <li>/set : defini le channel dans lequels le bot sera utilisable</li>
-                    <li>/create : crée un channel "botus"</li>
+                    <li class="raduis-top"><span>/set :</span> defini le channel dans lequels le bot sera utilisable</li>
+                    <li class="raduis-bottom"><span>/create :</span> crée un channel "botus"</li>
                 </ul>
                 <h4>Commandes utilisateur: </h4>
                 <ul>
-                    <li>/invite : Envoie le lien d'invitation du bot</li>
-                    <li>/ping : Pong (affiche la latence)</li>
-                    <li>/bobo : Botus !</li>
-                    <li>/start : Commence une nouvelle partie</li>
-                    <li>/fin : Termine la partie en cours</li>
-                    <li>/mot : Envoie le mot (Toujours caché)</li>
-                    <li>/stats : Montre le nombre de victoires</li>
-                    <li>/classement : Montre le classement des victoires</li>
-                    <li>/suggest : Pour suggerer une modification ou un mot</li>
-                    <li>/bug : Report un bug</li>
-                    <li>/support : Envoie le lien vers le serveur support</li>
-                    <li>/help : Affiche la liste des commandes disponibles</li>
+                    <li class="raduis-top"><span>/invite :</span> Envoie le lien d'invitation du bot</li>
+                    <li><span>/ping :</span> Pong (affiche la latence)</li>
+                    <li><span>/bobo :</span> Botus !</li>
+                    <li><span>/start :</span> Commence une nouvelle partie</li>
+                    <li><span>/fin :</span> Termine la partie en cours</li>
+                    <li><span>/mot :</span> Envoie le mot (Toujours caché)</li>
+                    <li><span>/stats :</span> Montre le nombre de victoires</li>
+                    <li><span>/classement :</span> Montre le classement des victoires</li>
+                    <li><span>/suggest :</span> Pour suggerer une modification ou un mot</li>
+                    <li><span>/bug :</span> Report un bug</li>
+                    <li><span>/support :</span> Envoie le lien vers le serveur support</li>
+                    <li class="raduis-bottom"><span>/help :</span> Affiche la liste des commandes disponibles</li>
                 </ul>
             </div>
         </div>
@@ -82,7 +84,7 @@
 
                         <span class="span-exists"><b>JAUNE</b></span> signifie que la lettre n'est pas correctement placé <br>
 
-                        <span class="span-wrong"><b>NOIR</b></span> siginifie que la lettre n'est pas dans le mot <br>
+                        <span class="span-wrong"><b>BLEU</b></span> siginifie que la lettre n'est pas dans le mot <br>
                     </li>
                     <li>Vous avez 6 essais, si vous trouvez le mot, le jeu se termine et vous gagnez. Sinon, continuez à proposer des mots jusqu'à ce que vous le trouviez ou que vous décidiez d'arrêter la partie en utilisant /fin !</li>
                 </ol>

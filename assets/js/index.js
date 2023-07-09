@@ -16,6 +16,6 @@ $("#info").click(function(){
         showCloseButton: true,
         focusConfirm: false,
         confirmButtonText:
-          'J\ai compris!',
+          'J\'ai compris !',
       })
 })
