@@ -85,9 +85,9 @@ body {
 
 /* cases jeu */
 .letter {
-    min-height: 70px;
-    min-width: 70px;
-    max-width: 70px;
+    min-height: 60px;
+    min-width: 60px;
+    max-width: 60px;
     background-color: #6b9aeb;
     color: white;
     font-weight: bold;
