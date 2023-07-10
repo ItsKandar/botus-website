@@ -1,0 +1,43 @@
+.span-correct {
+    color: #d00000;
+}
+
+.span-exists {
+    color: #FBC638;
+}
+
+.span-wrong {
+    color: #5865F2;
+}
+
+h1{
+    color: #5865F2;
+}
+
+main p>a{
+    color: #5865F2;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.cmd ul{
+    margin-top: 15px;
+}
+.cmd li{
+    list-style: none;
+    border: solid 1px black;
+    padding: 8px;
+    background-color: #eeeeee;
+}
+
+.cmd span{
+    font-weight: bold;
+}
+
+.raduis-top{
+    border-radius: 5px 5px 0 0;
+}
+
+.raduis-bottom{
+    border-radius: 0 0 5px 5px;
+}

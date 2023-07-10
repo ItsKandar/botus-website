@@ -1,0 +1,28 @@
+.ftr{
+    /* display: flex; */
+    /* justify-content: center; */
+    height: 250px;  
+}
+
+.ftr>ul{
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.ftr li{
+    list-style: none;
+}
+
+.ftr>ul>li{
+    margin-top: 30px;
+}
+
+.ftr a{
+    text-decoration: none;
+    color: black;
+}
+
+h4{
+    color: grey;
+}
