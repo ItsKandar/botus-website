@@ -729,13 +729,21 @@ function sleep(ms) {
 }
 
 // Fonction pour changer de case automatiquement à l'écriture du mot
-function autotab(original, destination) {
+function autotab(original, next, previous) {
     if (!$(original).closest(".letter").is(':last-child')) {
-        if (original.getAttribute && original.value.length == original.getAttribute("maxlength"))
-            destination.focus()
+        
+        if (original.value.length == original.getAttribute("maxlength")){
+            next.focus()
+        }
+    }
+    if (!$(original).closest(".letter").is(':first-child')) {
+        $('html').keyup(function(e){
+            if(e.keyCode == 8 && original.value.length == 0) {
+                previous.focus()
+            }
+        });
     }
 }
-
 // Fonction pour choisir un mot aléatoire
 function chooseWord() {
     attempts++;
@@ -764,7 +772,7 @@ function printLetter(letter, index, row) {
     input = document.createElement("input");
     input.classList.add("letter");
     input.setAttribute("maxlength", 1);
-    input.setAttribute("onKeyUp", "autotab(this, this.nextSibling)");
+    input.setAttribute("onKeyUp", "autotab(this, this.nextSibling, this.previousSibling)");
     $(input).appendTo(row).hide().fadeIn(500);
     if (index == 0) {
         input.value = letter
@@ -818,16 +826,6 @@ function checkWord(row) {
             cancelButtonText: 'Non'
         }).then((result) => {
             if (result.isConfirmed) {
-                // axios.post('function.php?action=delete')
-                // .then(function () {
-                //     Swal.fire(
-                //         'Supprimé!',
-                //         'Le compte a bien été supprimé.',
-                //         'success'
-                //     ).then(function () {
-                //         window.location.reload();
-                //     });            
-                // })
                 resetGame();
             }
         })
