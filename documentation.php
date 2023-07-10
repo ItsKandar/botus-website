@@ -34,9 +34,9 @@
         <div class="card m-3">
             <div class="card-body">
                 <h1 class="card-title">Setup de Botus</h1>
-                <h4>Étape 1 : Inviter ProBot</h4>
+                <h4>Étape 1 : Inviter Botus</h4>
                 <p>
-                    Utilisez <a href="https://discord.com/oauth2/authorize?client_id=1086344574689095741&permissions=8&scope=bot%20applications.commands" target="_blank">ce lien d'invitation</a> pour inviter ProBot sur votre serveur et autoriser votre compte en sélectionnant votre serveur.
+                    Utilisez <a href="https://discord.com/oauth2/authorize?client_id=1086344574689095741&permissions=8&scope=bot%20applications.commands" target="_blank">ce lien d'invitation</a> pour inviter Botus sur votre serveur et autoriser votre compte en sélectionnant votre serveur.
                 </p>
                 <h4>Étape 2 : Autoriser et accorder les permissions</h4>
                 <p>
@@ -86,7 +86,7 @@
 
                         <span class="span-wrong"><b>BLEU</b></span> siginifie que la lettre n'est pas dans le mot <br>
                     </li>
-                    <li>Vous avez 6 essais, si vous trouvez le mot, le jeu se termine et vous gagnez. Sinon, continuez à proposer des mots jusqu'à ce que vous le trouviez ou que vous décidiez d'arrêter la partie en utilisant /fin !</li>
+                    <li>Vous avez 6 essais, si vous trouvez le mot, le jeu se termine et vous gagnez. Sinon, continuez à proposer des mots jusqu'à ce que vous le trouviez ou que vous décidiez d'arrêter la partie en utilisant <b>/fin</b> !</li>
                 </ol>
             </div>
         </div>
