@@ -843,16 +843,6 @@ function checkWord(row) {
             cancelButtonText: 'Non'
         }).then((result) => {
             if (result.isConfirmed) {
-                // axios.post('function.php?action=delete')
-                // .then(function () {
-                //     Swal.fire(
-                //         'Supprimé!',
-                //         'Le compte a bien été supprimé.',
-                //         'success'
-                //     ).then(function () {
-                //         window.location.reload();
-                //     });            
-                // })
                 resetGame();
             }
         })
@@ -874,9 +864,21 @@ function startGame() {
                         fontSize: "25px"});
 
     var div = document.createElement("div");
-    div.setAttribute("id", "attempt-count");
+    div.setAttribute("id", "bottom-game")
     $(".game").append(div);
-    div.innerHTML = "tentatives : <p></p> /6";
+
+    var div1 = document.createElement("div");
+    div1.setAttribute("id", "attempt-count");
+    $(div).append(div1);
+    div1.innerHTML = "tentatives : <p></p> /6";
+
+    var btn = document.createElement("button");
+    btn.setAttribute("id", "reset-btn");
+    btn.setAttribute("onClick", "resetGame()");
+    $(div).append(btn);
+    btn.innerHTML = 'Nouveau mot!'
+
+
 
     chooseWord();
 }
@@ -884,6 +886,7 @@ function startGame() {
 function resetGame() {
     $('#box').children().remove();
     $('#attempt-count').remove();
+    $('#reset-btn').remove();
 
     attempts = 0;
 
