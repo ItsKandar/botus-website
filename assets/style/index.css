@@ -75,6 +75,25 @@ body {
 .play-btn:hover {
     background: radial-gradient(circle, rgb(200, 42, 14) 70%, rgb(140, 40, 24) 95%);
 } */
+#bottom-game{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#reset-btn {
+    color: white;
+    font-size: 1.5rem;
+    background-color: #FBC638;
+    border-radius: 10px;
+}
+#reset-btn:hover {
+    color: black;
+    background-color: #5865F2;
+    transition: all 0.5s;
+}
 
 #attempt-count {
     display: flex;
@@ -158,11 +177,11 @@ body {
     margin-right: 45px;
 }
 
-  span {
+  .aa {
     transform: skewX(15deg) 
   }
 
-  span:nth-child(2) {
+  .aa:nth-child(2) {
     width: 20px;
     margin-left: 30px;
     position: relative;

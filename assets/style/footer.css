@@ -26,3 +26,9 @@
 h4{
     color: grey;
 }
+
+.conditions{
+    font-size: 23px;
+    justify-self: center;
+    align-self: center;
+}

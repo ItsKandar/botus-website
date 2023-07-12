@@ -8,8 +8,8 @@
                         <img src="assets/images/logo-esgi.jpeg" width="200px" alt="lien esgi">
                     </a>
                 </li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Conditions d'utilisation</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Politique de confidentialité</a></li>
+                <li class="nav-item conditions"><a href="#" class="nav-link px-2 text-muted"><b>Conditions d'utilisation</b></a></li>
+                <li class="nav-item conditions"><a href="#" class="nav-link px-2 text-muted"><b>Politique de confidentialité</b></a></li>
                 
                 <li class="nav-item">
                     <h4>Fait avec amour par :</h4>
