@@ -765,6 +765,8 @@ async function printWord(targetWord) {
         printLetter(targetWord[i], i, row);
         await sleep(100);
     }
+    var lastRow = $('.ligne:last');
+    $(lastRow).children()[1].focus()
 }
 
 // Fonction pour afficher une lettre
@@ -847,8 +849,6 @@ function checkWord(row) {
             }
         })
     }
-
-
 }
 
 
