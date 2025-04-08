@@ -14,7 +14,7 @@
                 <li class="nav-item">
                     <h4>Fait avec amour par :</h4>
                     <ul>
-                        <li><a target="_blank" href="https://www.linkedin.com/in/nathan-moreau/">Nathan Moreau</a></li>
+                        <li><a target="_blank" href="https://www.linkedin.com/in/celeste-it/">Céleste Moreau</a></li>
                         <li><a target="_blank" href="https://www.linkedin.com/in/marius-oudin-302441170/">Marius Oudin</a></li>
                         <li><a target="_blank" href="https://www.linkedin.com/in/paul-andr%C3%A9-jacques-32524124b/">Paul-André Jacques</a></li>
                         <li><a target="_blank" href="https://www.linkedin.com/in/mohamed-adam-ben-nejma-531582237/">Mohamed Adam Ben Nejma</a></li>
