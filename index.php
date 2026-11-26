@@ -52,7 +52,7 @@
     <?php require 'footer.php'; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js" integrity="sha384-YB/DdIkloKoRpclWB8bNcYXWakt57USgtQPDzvnIDHYU0lasD5eWlXVo1S4ODukY" crossorigin="anonymous" defer></script>
-    <script src="assets/js/index.js" defer></script>
-    <script src="assets/js/game.js" defer></script>
+    <script src="<?= asset('assets/js/index.js') ?>" defer></script>
+    <script src="<?= asset('assets/js/game.js') ?>" defer></script>
 </body>
 </html>
