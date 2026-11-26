@@ -1,21 +1,32 @@
-$("#info").click(function(){
-    Swal.fire({
-        title: '<strong>Comment jouer?</strong>',
-        icon: 'question',
-        html:
-          '<p>Ce jeu reprend exactement le même concept que le jeu télévisé français Motus.</p>' +
-          '<p>Chaque partie, un mot est choisi aléatoirement. Vous devez le deviner en 6 essais.</p>' +
-          '<p>À chaque essai, les lettres du mot que vous avez proposé changeront de couleur en fonction de à quel point vous êtes proche de le trouver.</p>'+
-          ''+
-          '<div class="d-flex justify-content-center"><div class="help-letter-container correct"> F </div><div class="help-letter-container"> R </div><div class="help-letter-container"> U </div><div class="help-letter-container"> I </div><div class="help-letter-container"> T </div></div>'+
-          '<p>La lettre <span class="span-correct"> F </span> est dans le mot, à la bonne place.</p>'+
-          '<div class="d-flex justify-content-center"><div data-v-0b5fe804="" class="help-letter-container"> P </div><div data-v-0b5fe804="" class="help-letter-container"> O </div><div data-v-0b5fe804="" class="help-letter-container exists"> C </div><div data-v-0b5fe804="" class="help-letter-container"> H </div><div data-v-0b5fe804="" class="help-letter-container"> E </div></div>'+
-          '<p>La lettre <span class="span-exists"> C </span> est dans le mot, mais pas à la bonne place.</p>'+
-          '<div class="d-flex justify-content-center"><div data-v-0b5fe804="" class="help-letter-container"> S </div><div data-v-0b5fe804="" class="help-letter-container"> O </div><div data-v-0b5fe804="" class="help-letter-container"> E </div><div data-v-0b5fe804="" class="help-letter-container"> U </div><div data-v-0b5fe804="" class="help-letter-container wrong"> R </div></div>'+
-          '<p>La lettre <span class="span-wrong"> R </span> n\'est pas dans le mot.</p>',
-        showCloseButton: true,
-        focusConfirm: false,
-        confirmButtonText:
-          'J\'ai compris !',
-      })
-})
+'use strict';
+
+// Fenêtre « Comment jouer ? »
+(() => {
+    const exemple = (mot, index, etat) =>
+        '<div class="exemple">' +
+        [...mot].map((l, i) => `<span class="case${i === index ? ` ${etat}` : ''}">${l}</span>`).join('') +
+        '</div>';
+
+    document.getElementById('aide').addEventListener('click', () => {
+        if (!window.Swal) return;
+        Swal.fire({
+            title: 'Comment jouer ?',
+            icon: 'question',
+            html:
+                '<div class="aide">' +
+                "<p>Le principe du jeu télévisé Motus : un mot est tiré au hasard, vous avez <b>6 essais</b> pour le trouver. La première lettre est donnée.</p>" +
+                '<p>Chaque proposition doit avoir la même longueur, commencer par la même lettre et exister dans le dictionnaire. Les accents sont ignorés.</p>' +
+                exemple('FRUIT', 0, 'correct') +
+                '<p>Le <span class="span-correct">F</span> est dans le mot, à la bonne place.</p>' +
+                exemple('POCHE', 2, 'exists') +
+                '<p>Le <span class="span-exists">C</span> est dans le mot, mais pas à cette place.</p>' +
+                exemple('SOEUR', 4, 'wrong') +
+                "<p>Le <span class=\"span-wrong\">R</span> n'est pas dans le mot.</p>" +
+                '<p class="small">Clavier physique ou clavier à l\'écran ; <b>Entrée</b> pour valider.</p>' +
+                '</div>',
+            showCloseButton: true,
+            confirmButtonColor: '#5865F2',
+            confirmButtonText: "J'ai compris !",
+        });
+    });
+})();
