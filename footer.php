@@ -1,27 +1,29 @@
-<!--  les conditions d'utilisation, un autre avec la politique de confidentialité et un petit message -->
-<div class="container">
-    <div class="row">
-        <div class="py-3 my-4 col-12 ftr">
-            <ul class="nav border-top pb-3 mb-3">
-                <li class="nav-item">
-                    <a href="https://www.esgi.fr/campus-reims.html" target="_blank" class="nav-link px-2 text-muted">
-                        <img src="assets/images/logo-esgi.jpeg" width="200px" alt="lien esgi">
-                    </a>
-                </li>
-                <li class="nav-item conditions"><a href="#" class="nav-link px-2 text-muted"><b>Conditions d'utilisation</b></a></li>
-                <li class="nav-item conditions"><a href="#" class="nav-link px-2 text-muted"><b>Politique de confidentialité</b></a></li>
-                
-                <li class="nav-item">
-                    <h4>Fait avec amour par :</h4>
-                    <ul>
-                        <li><a target="_blank" href="https://www.linkedin.com/in/celeste-it/">Céleste Moreau</a></li>
-                        <li><a target="_blank" href="https://www.linkedin.com/in/marius-oudin-302441170/">Marius Oudin</a></li>
-                        <li><a target="_blank" href="https://www.linkedin.com/in/paul-andr%C3%A9-jacques-32524124b/">Paul-André Jacques</a></li>
-                        <li><a target="_blank" href="https://www.linkedin.com/in/mohamed-adam-ben-nejma-531582237/">Mohamed Adam Ben Nejma</a></li>
-                    </ul>
-                </li>
-            </ul>
-        <!-- <p class="text-center text-muted">&copy; 2022 Company, Inc</p> -->
+<footer class="pied mt-auto">
+    <div class="container-xxl py-4">
+        <div class="row g-4 align-items-center">
+            <div class="col-12 col-md-4 text-center text-md-start">
+                <a href="https://www.esgi.fr/campus-reims.html" target="_blank" rel="noopener">
+                    <img src="assets/images/logo-esgi.jpeg" width="180" alt="ESGI Reims">
+                </a>
+            </div>
+            <div class="col-12 col-md-4 text-center">
+                <p class="mb-1">Botus, projet étudiant de l'ESGI Reims.</p>
+                <p class="mb-0 small">
+                    <a href="https://github.com/ItsKandar/motus" target="_blank" rel="noopener">Code du bot</a> ·
+                    <a href="https://github.com/ItsKandar/botus-website" target="_blank" rel="noopener">Code du site</a> ·
+                    <a href="https://discord.gg/4M6596sjZa" target="_blank" rel="noopener">Support</a>
+                </p>
+            </div>
+            <div class="col-12 col-md-4 text-center text-md-end">
+                <h2 class="h6 text-uppercase">Fait avec amour par</h2>
+                <ul class="list-unstyled mb-0">
+                    <li><a target="_blank" rel="noopener" href="https://www.linkedin.com/in/celeste-it/">Céleste Moreau</a></li>
+                    <li><a target="_blank" rel="noopener" href="https://www.linkedin.com/in/marius-oudin-302441170/">Marius Oudin</a></li>
+                    <li><a target="_blank" rel="noopener" href="https://www.linkedin.com/in/paul-andr%C3%A9-jacques-32524124b/">Paul-André Jacques</a></li>
+                    <li><a target="_blank" rel="noopener" href="https://www.linkedin.com/in/mohamed-adam-ben-nejma-531582237/">Mohamed Adam Ben Nejma</a></li>
+                </ul>
+            </div>
         </div>
     </div>
-</div> 
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous" defer></script>

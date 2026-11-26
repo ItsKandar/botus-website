@@ -1,105 +1,79 @@
+<?php $titre = 'Documentation : Botus'; $css = ['documentation']; $page = 'documentation'; ?>
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="./assets/images/logo_botus.jpg" />
-    
-    <link rel="stylesheet" href="assets/style/navbar.css">
-    <link rel="stylesheet" href="assets/style/documentation.css">
-    <link rel="stylesheet" href="assets/style/footer.css">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poller+One&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-
-    <title>Documentation</title>
+    <?php require 'head.php'; ?>
 </head>
-
 <body>
-    <header>
-        <?php require("navbar.php") ?>
-    </header>
+    <?php require 'navbar.php'; ?>
 
-    <main class="d-flex flex-column container">
-        <div class="card m-3">
-            <div class="card-body">
-                <h1 class="card-title">Introduction</h1>
-                <p>Botus est un bot Discord qui offre la possibilité de jouer au jeu Motus directement sur la plateforme.</p>
+    <main class="container my-4 flex-grow-1">
+        <section class="carte">
+            <h1>Botus</h1>
+            <p>Botus est un bot Discord pour jouer à Motus directement sur votre serveur : on devine un mot français dont on connaît la première lettre et la longueur, en 6 essais au maximum. La partie est commune à tout le serveur, tout le monde peut proposer.</p>
+            <p class="mb-0">Pas de Discord sous la main ? <a href="./">Jouez directement sur le site</a>.</p>
+        </section>
 
-            </div>
-        </div>
+        <section class="carte">
+            <h2>Installer Botus</h2>
+            <ol>
+                <li>Ouvrez <a href="https://discord.com/oauth2/authorize?client_id=1086344574689095741&amp;permissions=8&amp;scope=bot%20applications.commands" target="_blank" rel="noopener">le lien d'invitation</a>, choisissez votre serveur et validez les permissions.</li>
+                <li>Un administrateur choisit le salon de jeu avec <code>/set</code>, ou en crée un avec <code>/create</code>. Le bot n'écoute les propositions que dans ce salon.</li>
+                <li>Lancez une partie avec <code>/start</code>.</li>
+            </ol>
+        </section>
 
-        <div class="card m-3">
-            <div class="card-body">
-                <h1 class="card-title">Setup de Botus</h1>
-                <h4>Étape 1 : Inviter Botus</h4>
-                <p>
-                    Utilisez <a href="https://discord.com/oauth2/authorize?client_id=1086344574689095741&permissions=8&scope=bot%20applications.commands" target="_blank">ce lien d'invitation</a> pour inviter Botus sur votre serveur et autoriser votre compte en sélectionnant votre serveur.
-                </p>
-                <h4>Étape 2 : Autoriser et accorder les permissions</h4>
-                <p>
-                    Après avoir invité Botus, vous serez invité à autoriser votre compte et sélectionner les permissions nécessaires pour que le bot fonctionne correctement.
-                </p>
-            </div>
-        </div>
+        <section class="carte">
+            <h2>Comment jouer ?</h2>
+            <ol>
+                <li><code>/start</code> tire un mot au hasard. Le bot affiche sa première lettre et sa longueur.</li>
+                <li>Proposez un mot en l'écrivant simplement dans le salon. Il doit avoir la même longueur, commencer par la même lettre et exister dans le dictionnaire. Les accents sont ignorés.</li>
+                <li>Le bot répond avec une ligne de carrés :
+                    <ul class="legende">
+                        <li><span class="carre carre-correct" aria-hidden="true"></span><b>rouge</b> : la lettre est bien placée ;</li>
+                        <li><span class="carre carre-exists" aria-hidden="true"></span><b>jaune</b> : la lettre est dans le mot, mais ailleurs ;</li>
+                        <li><span class="carre carre-wrong" aria-hidden="true"></span><b>noir</b> : la lettre n'est pas dans le mot (ou plus, si elle est déjà comptée).</li>
+                    </ul>
+                </li>
+                <li>Mot trouvé : une victoire de plus pour vous, et un nouveau mot est tiré. Après 6 essais sans succès, le mot est révélé.</li>
+                <li>Pour discuter dans le salon sans jouer, commencez votre message par un point (<code>.</code>).</li>
+            </ol>
+        </section>
 
-        <div class="card m-3">
-            <div class="card-body cmd">
-                <h1 class="card-title">Les commandes</h1>
-                <h4>Commandes admin: </h4>
-                <ul>
-                    <li class="raduis-top"><span>/set :</span> defini le channel dans lequels le bot sera utilisable</li>
-                    <li class="raduis-bottom"><span>/create :</span> crée un channel "botus"</li>
-                </ul>
-                <h4>Commandes utilisateur: </h4>
-                <ul>
-                    <li class="raduis-top"><span>/invite :</span> Envoie le lien d'invitation du bot</li>
-                    <li><span>/ping :</span> Pong (affiche la latence)</li>
-                    <li><span>/bobo :</span> Botus !</li>
-                    <li><span>/start :</span> Commence une nouvelle partie</li>
-                    <li><span>/fin :</span> Termine la partie en cours</li>
-                    <li><span>/mot :</span> Envoie le mot (Toujours caché)</li>
-                    <li><span>/stats :</span> Montre le nombre de victoires</li>
-                    <li><span>/classement :</span> Montre le classement des victoires</li>
-                    <li><span>/suggest :</span> Pour suggerer une modification ou un mot</li>
-                    <li><span>/bug :</span> Report un bug</li>
-                    <li><span>/support :</span> Envoie le lien vers le serveur support</li>
-                    <li class="raduis-bottom"><span>/help :</span> Affiche la liste des commandes disponibles</li>
-                </ul>
-            </div>
-        </div>
+        <section class="carte">
+            <h2>Commandes</h2>
+            <h3>Pour tout le monde</h3>
+            <dl class="commandes">
+                <dt>/start [nb_lettres]</dt><dd>Commence une nouvelle partie (longueur optionnelle, de 2 à 20 lettres).</dd>
+                <dt>/fin</dt><dd>Abandonne la partie : révèle le mot et en tire un nouveau.</dd>
+                <dt>/mot</dt><dd>Réaffiche l'état de la partie, mot caché.</dd>
+                <dt>/stats</dt><dd>Vos victoires et défaites.</dd>
+                <dt>/classement</dt><dd>Classement du serveur.</dd>
+                <dt>/global</dt><dd>Classement global, tous serveurs confondus.</dd>
+                <dt>/suggest &lt;message&gt;</dt><dd>Suggérer une amélioration ou un mot.</dd>
+                <dt>/bug &lt;message&gt;</dt><dd>Signaler un bug.</dd>
+                <dt>/invite</dt><dd>Lien d'invitation du bot.</dd>
+                <dt>/support</dt><dd>Lien du serveur d'assistance.</dd>
+                <dt>/ping</dt><dd>Latence du bot.</dd>
+                <dt>/bobo</dt><dd>Botus !</dd>
+                <dt>/help</dt><dd>Liste des commandes.</dd>
+            </dl>
+            <h3>Pour les administrateurs du serveur</h3>
+            <dl class="commandes">
+                <dt>/set &lt;salon&gt;</dt><dd>Définit le salon de jeu.</dd>
+                <dt>/create</dt><dd>Crée un salon <code>#botus</code>.</dd>
+                <dt>/longueur &lt;0-20&gt;</dt><dd>Impose la longueur des prochains mots (0 : aléatoire).</dd>
+                <dt>/setmot &lt;mot&gt;</dt><dd>Impose le mot à deviner. La partie ne compte pas au classement.</dd>
+                <dt>/quoifeur on|off</dt><dd>Active les réponses automatiques (« quoi » → « feur »…). Désactivé par défaut.</dd>
+            </dl>
+        </section>
 
-        <div class="card m-3">
-            <div class="card-body">
-                <h1 class="card-title">Comment jouer?</h1>
-                <ol>
-                    <li>Utilisez /start pour commencer une nouvelle partie</li>
-                    <li>Le bot affichera un mot à deviner avec les lettres masquées</li>
-                    <li>Proposez un mot directement dans le chat</li>
-                    <li>
-                        Le bot va renvoyer votre mot avec en dessous des carrées rouge, jaune ou noir <br>
-                        <span class="span-correct"><b>ROUGE</b></span> signifie que la lettre est correctement placé <br>
-
-                        <span class="span-exists"><b>JAUNE</b></span> signifie que la lettre n'est pas correctement placé <br>
-
-                        <span class="span-wrong"><b>BLEU</b></span> siginifie que la lettre n'est pas dans le mot <br>
-                    </li>
-                    <li>Vous avez 6 essais, si vous trouvez le mot, le jeu se termine et vous gagnez. Sinon, continuez à proposer des mots jusqu'à ce que vous le trouviez ou que vous décidiez d'arrêter la partie en utilisant <b>/fin</b> !</li>
-                </ol>
-            </div>
-        </div>
+        <section class="carte">
+            <h2>Besoin d'aide ?</h2>
+            <p class="mb-0">Rejoignez le <a href="https://discord.gg/4M6596sjZa" target="_blank" rel="noopener">serveur d'assistance</a>, ou utilisez <code>/bug</code> et <code>/suggest</code> directement depuis Discord.</p>
+        </section>
     </main>
 
-    <!-- footer -->
-    <?php require("footer.php") ?>
+    <?php require 'footer.php'; ?>
 </body>
-<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
-
 </html>

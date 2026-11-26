@@ -1,896 +1,399 @@
+/* global Swal */
+'use strict';
 
-// Liste des mots à deviner
-var words = [
-    "comme",
-    "etait",
-    "avoir",
-    "chaud",
-    "certains",
-    "boite",
-    "dehors",
-    "autre",
-    "etaient",
-    "faire",
-    "temps",
-    "volonte",
-    "comment",
-    "chaque",
-    "ensemble",
-    "trois",
-    "vouloir",
-    "aussi",
-    "jouer",
-    "petit",
-    "mettre",
-    "maison",
-    "grand",
-    "epeler",
-    "ajouter",
-    "terre",
-    "grand",
-    "suivre",
-    "pourquoi",
-    "interroger",
-    "hommes",
-    "changement",
-    "lumiere",
-    "genre",
-    "besoin",
-    "maison",
-    "image",
-    "essayer",
-    "encore",
-    "animal",
-    "point",
-    "monde",
-    "construire",
-    "terre",
-    "nouveau",
-    "travail",
-    "partie",
-    "prendre",
-    "obtenir",
-    "fabrique",
-    "vivre",
-    "apres",
-    "arriere",
-    "seulement",
-    "homme",
-    "annee",
-    "montrer",
-    "donner",
-    "notre",
-    "juste",
-    "forme",
-    "phrase",
-    "grand",
-    "penser",
-    "aider",
-    "faible",
-    "ligne",
-    "differer",
-    "beaucoup",
-    "signifier",
-    "avant",
-    "droit",
-    "garçon",
-    "vieux",
-    "quand",
-    "utiliser",
-    "votre",
-    "maniere",
-    "beaucoup",
-    "ecrire",
-    "voudrais",
-    "comme",
-    "faire",
-    "chose",
-    "regarder",
-    "pourrait",
-    "aller",
-    "venir",
-    "nombre",
-    "aucun",
-    "personnes",
-    "savoir",
-    "appel",
-    "premiere",
-    "maintenant",
-    "trouver",
-    "supporter",
-    "propre",
-    "devrait",
-    "trouve",
-    "reponse",
-    "ecole",
-    "croitre",
-    "etude",
-    "encore",
-    "apprendre",
-    "usine",
-    "couvercle",
-    "nourriture",
-    "soleil",
-    "quatre",
-    "entre",
-    "garder",
-    "jamais",
-    "dernier",
-    "laisser",
-    "pensee",
-    "ville",
-    "arbre",
-    "traverser",
-    "ferme",
-    "debut",
-    "puissance",
-    "histoire",
-    "tirer",
-    "gauche",
-    "courir",
-    "presse",
-    "proche",
-    "livre",
-    "porter",
-    "science",
-    "manger",
-    "chambre",
-    "poisson",
-    "montagne",
-    "arretez",
-    "entendre",
-    "cheval",
-    "coupe",
-    "regarder",
-    "couleur",
-    "principal",
-    "ouvert",
-    "paraitre",
-    "ensemble",
-    "suivant",
-    "blanc",
-    "enfants",
-    "commencer",
-    "marcher",
-    "exemple",
-    "facilite",
-    "papier",
-    "groupe",
-    "toujours",
-    "musique",
-    "marque",
-    "souvent",
-    "lettre",
-    "riviere",
-    "voiture",
-    "pieds",
-    "soins",
-    "deuxieme",
-    "assez",
-    "plaine",
-    "fille",
-    "habituel",
-    "jeune",
-    "jamais",
-    "rouge",
-    "liste",
-    "sentir",
-    "parler",
-    "oiseau",
-    "bientot",
-    "corps",
-    "chien",
-    "famille",
-    "direct",
-    "laisser",
-    "chanson",
-    "mesurer",
-    "porte",
-    "produit",
-    "court",
-    "chiffre",
-    "classe",
-    "question",
-    "arriver",
-    "complete",
-    "navire",
-    "moitie",
-    "ordre",
-    "probleme",
-    "piece",
-    "savait",
-    "passer",
-    "depuis",
-    "ensemble",
-    "pouce",
-    "multiplier",
-    "cours",
-    "rester",
-    "plein",
-    "force",
-    "objet",
-    "decider",
-    "surface",
-    "profond",
-    "systeme",
-    "occupe",
-    "record",
-    "bateau",
-    "commun",
-    "possible",
-    "place",
-    "mille",
-    "verifier",
-    "forme",
-    "assimiler",
-    "chaud",
-    "manquer",
-    "apporte",
-    "chaleur",
-    "neige",
-    "apporter",
-    "lointain",
-    "remplir",
-    "peindre",
-    "langue",
-    "entre",
-    "unite",
-    "puissance",
-    "ville",
-    "certain",
-    "voler",
-    "tomber",
-    "conduire",
-    "sombre",
-    "machine",
-    "patienter",
-    "figure",
-    "etoile",
-    "boite",
-    "domaine",
-    "reste",
-    "correct",
-    "capable",
-    "livre",
-    "Termine",
-    "beaute",
-    "resiste",
-    "contenir",
-    "avant",
-    "enseigner",
-    "semaine",
-    "finale",
-    "donne",
-    "rapide",
-    "developper",
-    "ocean",
-    "chaud",
-    "gratuit",
-    "minute",
-    "special",
-    "esprit",
-    "derriere",
-    "clair",
-    "queue",
-    "produire",
-    "espace",
-    "entendu",
-    "meilleur",
-    "heure",
-    "mieux",
-    "pendant",
-    "rappeler",
-    "etape",
-    "tenir",
-    "ouest",
-    "interet",
-    "atteindre",
-    "rapide",
-    "verbe",
-    "chanter",
-    "ecouter",
-    "table",
-    "Voyage",
-    "moins",
-    "matin",
-    "simple",
-    "plusieurs",
-    "voyelle",
-    "guerre",
-    "poser",
-    "contre",
-    "modele",
-    "centre",
-    "amour",
-    "personne",
-    "argent",
-    "servir",
-    "apparaitre",
-    "route",
-    "carte",
-    "pluie",
-    "regle",
-    "gouverner",
-    "tirer",
-    "froid",
-    "energie",
-    "chasse",
-    "probable",
-    "frere",
-    "cellule",
-    "croire",
-    "choisir",
-    "soudain",
-    "compter",
-    "carre",
-    "raison",
-    "longueur",
-    "sujet",
-    "region",
-    "taille",
-    "varier",
-    "regler",
-    "parler",
-    "poids",
-    "general",
-    "glace",
-    "question",
-    "cercle",
-    "paire",
-    "inclure",
-    "fracture",
-    "syllabe",
-    "feutre",
-    "grandiose",
-    "balle",
-    "encore",
-    "vague",
-    "tomber",
-    "present",
-    "lourd",
-    "danse",
-    "moteur",
-    "position",
-    "large",
-    "voile",
-    "materiel",
-    "fraction",
-    "foret",
-    "course",
-    "fenetre",
-    "magasin",
-    "train",
-    "sommeil",
-    "prouver",
-    "jambe",
-    "exercice",
-    "capture",
-    "monture",
-    "souhaiter",
-    "conseil",
-    "hiver",
-    "ecrit",
-    "sauvage",
-    "instrument",
-    "conserve",
-    "verre",
-    "herbe",
-    "vache",
-    "emploi",
-    "signe",
-    "visite",
-    "passe",
-    "amusement",
-    "clair",
-    "temps",
-    "million",
-    "porter",
-    "finition",
-    "heureux",
-    "espoir",
-    "fleur",
-    "vetir",
-    "etrange",
-    "disparu",
-    "commerce",
-    "melodie",
-    "voyage",
-    "bureau",
-    "recevoir",
-    "rangee",
-    "bouche",
-    "exact",
-    "symbole",
-    "mourir",
-    "moins",
-    "difficulte",
-    "ecrit",
-    "semence",
-    "joindre",
-    "suggerer",
-    "propre",
-    "pause",
-    "augmenter",
-    "mauvais",
-    "huile",
-    "toucher",
-    "melanger",
-    "equipe",
-    "perdu",
-    "porter",
-    "jardin",
-    "expedie",
-    "choisir",
-    "adapter",
-    "debit",
-    "juste",
-    "banque",
-    "recueillir",
-    "sauver",
-    "controle",
-    "decimal",
-    "oreille",
-    "autre",
-    "casse",
-    "milieu",
-    "moment",
-    "echelle",
-    "printemps",
-    "observer",
-    "enfant",
-    "droit",
-    "consonne",
-    "nation",
-    "vitesse",
-    "methode",
-    "organe",
-    "payer",
-    "section",
-    "nuage",
-    "surprise",
-    "calme",
-    "pierre",
-    "minuscule",
-    "montee",
-    "frais",
-    "conception",
-    "pauvres",
-    "experience",
-    "unique",
-    "baton",
-    "vingt",
-    "sourire",
-    "sauter",
-    "village",
-    "racine",
-    "acheter",
-    "augmenter",
-    "resoudre",
-    "metal",
-    "pousser",
-    "paragraphe",
-    "troisieme",
-    "cheveux",
-    "decrire",
-    "cuisinier",
-    "etage",
-    "chaque",
-    "resultat",
-    "bruler",
-    "colline",
-    "siecle",
-    "envisager",
-    "droit",
-    "copie",
-    "phrase",
-    "silencieux",
-    "sable",
-    "rouleau",
-    "doigt",
-    "industrie",
-    "valeur",
-    "lutte",
-    "mensonge",
-    "battre",
-    "exciter",
-    "naturel",
-    "capital",
-    "chaise",
-    "danger",
-    "fruit",
-    "riche",
-    "epais",
-    "soldat",
-    "processus",
-    "pratique",
-    "separe",
-    "difficile",
-    "medecin",
-    "proteger",
-    "recolte",
-    "moderne",
-    "element",
-    "frapper",
-    "etudiant",
-    "partie",
-    "localiser",
-    "anneau",
-    "caractere",
-    "insecte",
-    "periode",
-    "indiquer",
-    "radio",
-    "rayon",
-    "atome",
-    "humain",
-    "histoire",
-    "effet",
-    "electrique",
-    "attendre",
-    "imaginer",
-    "fournir",
-    "ainsi",
-    "femme",
-    "capitaine",
-    "deviner",
-    "necessaire",
-    "creer",
-    "voisin",
-    "lavage",
-    "plutot",
-    "foule",
-    "comparer",
-    "poeme",
-    "chaine",
-    "cloche",
-    "dependre",
-    "viande",
-    "celebre",
-    "dollar",
-    "courant",
-    "mince",
-    "triangle",
-    "planete",
-    "colonie",
-    "horloge",
-    "entrer",
-    "majeur",
-    "frais",
-    "recherche",
-    "envoyer",
-    "jaune",
-    "pistolet",
-    "permettre",
-    "impression",
-    "place",
-    "desert",
-    "costume",
-    "courant",
-    "ascenseur",
-    "arriver",
-    "maitre",
-    "piste",
-    "rivage",
-    "division",
-    "feuille",
-    "substance",
-    "favoriser",
-    "relier",
-    "poste",
-    "passer",
-    "corde",
-    "graisse",
-    "heureux",
-    "original",
-    "station",
-    "charger",
-    "propre",
-    "segment",
-    "esclave",
-    "canard",
-    "instant",
-    "marche",
-    "degre",
-    "peupler",
-    "poussin",
-    "ennemi",
-    "repondre",
-    "boisson",
-    "support",
-    "discours",
-    "nature",
-    "gamme",
-    "vapeur",
-    "mouvement",
-    "chemin",
-    "liquide",
-    "signifiait",
-    "quotient",
-    "dents",
-    "coquille",
-    "oxygene",
-    "sucre",
-    "deces",
-    "assez",
-    "competence",
-    "femmes",
-    "saison",
-    "solution",
-    "aimant",
-    "argent",
-    "merci",
-    "branche",
-    "rencontre",
-    "suffixe",
-    "figue",
-    "enorme",
-    "acier",
-    "discuter",
-    "avant",
-    "similaire",
-    "guider",
-    "experience",
-    "score",
-    "pomme",
-    "achete",
-    "manteau",
-    "masse",
-    "carte",
-    "bande",
-    "corde",
-    "glissement",
-    "gagner",
-    "rever",
-    "soiree",
-    "condition",
-    "outil",
-    "total",
-    "odeur",
-    "vallee",
-    "double",
-    "siege",
-    "continuer",
-    "graphique",
-    "chapeau",
-    "vendre",
-    "succes",
-    "entreprise",
-    "soustraire",
-    "evenement",
-    "accord",
-    "baignade",
-    "terme",
-    "oppose",
-    "femme",
-    "chaussure",
-    "epaule",
-    "organiser",
-    "inventer",
-    "coton",
-    "determiner",
-    "litre",
-    "camion",
-    "bruit",
-    "niveau",
-    "chance",
-    "recueillir",
-    "boutique",
-    "tronçon",
-    "jeter",
-    "eclat",
-    "propriete",
-    "colonne",
-    "molecule",
-    "repetition",
-    "exiger",
-    "large",
-    "preparer",
-    "pluriel",
-    "colere",
-    "continent",
-    "assoir",
-    "malleable",
-    "internet",
-    "fuite",
-    "urgent",
-    "urgente",
-    "france",
-    "francais",
-    "francaise",
-    "etangs",
-    "aquatique",
-    "activite",
-    "creation",
-    "bassines",
-    "bassin",
-    "minuit",
-    "perdre",
-    "piege",
-    "mange",
-    "flamands",
-    "flandre",
-    "artisant",
-    "jambon",
-    "Canoe"
+// Jeu Botus : même règles que le bot Discord (ItsKandar/motus).
+// - la première lettre est donnée, le mot fait entre 5 et 10 lettres ;
+// - chaque proposition doit avoir la même longueur, commencer par la même
+//   lettre et exister dans le dictionnaire ;
+// - rouge = bien placée, jaune = mal placée (dans la limite des occurrences),
+//   bleu = absente ; 6 essais au maximum.
+(() => {
+    const ESSAIS_MAX = 6;
+    const CLAVIER = ['azertyuiop', 'qsdfghjklm', 'wxcvbn'];
+    const DUREE_LETTRE = 250; // ms entre deux lettres révélées
+    const RANG = { wrong: 1, exists: 2, correct: 3 };
+    const SECOUSSE = [
+        { transform: 'translateX(0)' },
+        { transform: 'translateX(-8px)' },
+        { transform: 'translateX(8px)' },
+        { transform: 'translateX(-8px)' },
+        { transform: 'translateX(8px)' },
+        { transform: 'translateX(0)' },
     ];
 
-// Mot à deviner
-var targetWord = "";
+    /**
+     * Raccourci pour document.getElementById.
+     * @param {string} id Identifiant de l'élément.
+     * @returns {HTMLElement} L'élément trouvé.
+     */
+    const el = (id) => document.getElementById(id);
+    const grille = el('grille');
+    const message = el('message');
+    const clavier = el('clavier');
+    const compteur = el('essai');
+    const boutonRejouer = el('rejouer');
+    const mouvementReduit = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-// Mot deviné
-var userInput = "";
+    let mots = null;          // mots à deviner
+    let dico = null;          // Set des mots acceptés (null : pas de vérification)
+    let chargement = null;
 
-// Nombre de tentatives
-var attempts = 0;
+    let cible = '';
+    let essai = 0;            // index de la ligne en cours
+    let saisie = '';
+    let connues = [];         // lettres bien placées déjà trouvées
+    let etatTouches = {};
+    let enCours = false;
+    let verrou = false;       // pendant l'animation
 
-// Fonction de délai pour les affichages plus tard
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
+    /**
+     * Met en minuscules et retire les accents (é → e, ç → c).
+     * @param {string} texte Texte à normaliser.
+     * @returns {string} Texte normalisé.
+     */
+    const normaliser = (texte) =>
+        texte.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 
-// Fonction pour changer de case automatiquement à l'écriture du mot
-function autotab(original, next, previous) {
-    if (!$(original).closest(".letter").is(':last-child')) {
-        
-        if (original.value.length == original.getAttribute("maxlength")){
-            next.focus()
+    /**
+     * Attend quelques millisecondes.
+     * @param {number} ms Durée.
+     * @returns {Promise<void>} Résolue après la durée.
+     */
+    const pause = (ms) => new Promise((resoudre) => setTimeout(resoudre, ms));
+
+    /**
+     * Charge (une seule fois) les mots à deviner et le dictionnaire.
+     * Sans dictionnaire, le jeu reste jouable : toute proposition est acceptée.
+     * @returns {Promise<void>} Résolue quand les listes sont prêtes.
+     */
+    function charger() {
+        chargement ??= Promise.all([
+            fetch('assets/mots/mots.json').then((reponse) => {
+                if (!reponse.ok) throw new Error(`mots.json : HTTP ${reponse.status}`);
+                return reponse.json();
+            }),
+            fetch('assets/mots/dico.txt')
+                .then((reponse) => (reponse.ok
+                    ? reponse.text()
+                    : Promise.reject(new Error(`dico.txt : HTTP ${reponse.status}`))))
+                .then((texte) => new Set(texte.split('\n').filter(Boolean)))
+                .catch((erreur) => {
+                    console.warn('Dictionnaire indisponible, propositions non vérifiées.', erreur);
+                    return null;
+                }),
+        ]).then(([listeMots, listeDico]) => {
+            mots = listeMots;
+            dico = listeDico;
+        });
+        return chargement;
+    }
+
+    /**
+     * Couleurs façon Motus, en tenant compte des lettres en double :
+     * d'abord les bien placées, puis les mal placées sur ce qui reste.
+     * @param {string} proposition Mot proposé.
+     * @param {string} mot Mot à deviner.
+     * @returns {string[]} 'correct', 'exists' ou 'wrong' pour chaque lettre.
+     */
+    function evaluer(proposition, mot) {
+        const resultat = Array(mot.length).fill('wrong');
+        const restantes = {};
+        for (let i = 0; i < mot.length; i++) {
+            if (proposition[i] === mot[i]) resultat[i] = 'correct';
+            else restantes[mot[i]] = (restantes[mot[i]] || 0) + 1;
+        }
+        for (let i = 0; i < mot.length; i++) {
+            if (resultat[i] !== 'correct' && restantes[proposition[i]] > 0) {
+                resultat[i] = 'exists';
+                restantes[proposition[i]]--;
+            }
+        }
+        return resultat;
+    }
+
+    /**
+     * Crée la grille vide : 6 lignes de la longueur du mot.
+     * @returns {void}
+     */
+    function construireGrille() {
+        grille.replaceChildren();
+        grille.style.setProperty('--colonnes', cible.length);
+        for (let ligneIndex = 0; ligneIndex < ESSAIS_MAX; ligneIndex++) {
+            const ligne = document.createElement('div');
+            ligne.className = 'ligne';
+            for (let colonne = 0; colonne < cible.length; colonne++) {
+                const caseLettre = document.createElement('div');
+                caseLettre.className = 'case';
+                ligne.append(caseLettre);
+            }
+            grille.append(ligne);
         }
     }
-    if (!$(original).closest(".letter").is(':first-child')) {
-        $('html').keyup(function(e){
-            if(e.keyCode == 8 && original.value.length == 0) {
-                previous.focus()
-            }
+
+    /**
+     * Crée une touche du clavier à l'écran.
+     * @param {string} texte Texte affiché.
+     * @param {string} valeur Lettre ou nom de touche (Enter, Backspace).
+     * @param {string} [classe] Classe CSS supplémentaire.
+     * @param {string} [label] Libellé accessible.
+     * @returns {HTMLButtonElement} La touche.
+     */
+    function touche(texte, valeur, classe, label) {
+        const bouton = document.createElement('button');
+        bouton.type = 'button';
+        bouton.className = classe ? `touche ${classe}` : 'touche';
+        bouton.textContent = texte;
+        bouton.dataset.touche = valeur;
+        if (label) bouton.setAttribute('aria-label', label);
+        return bouton;
+    }
+
+    /**
+     * Crée le clavier AZERTY à l'écran.
+     * @returns {void}
+     */
+    function construireClavier() {
+        clavier.replaceChildren();
+        CLAVIER.forEach((lettres, index) => {
+            const rangee = document.createElement('div');
+            rangee.className = 'rangee';
+            if (index === 2) rangee.append(touche('Entrée', 'Enter', 'large'));
+            for (const lettre of lettres) rangee.append(touche(lettre.toUpperCase(), lettre));
+            if (index === 2) rangee.append(touche('⌫', 'Backspace', 'large', 'Effacer'));
+            clavier.append(rangee);
         });
     }
-}
-// Fonction pour choisir un mot aléatoire
-function chooseWord() {
-    attempts++;
-    targetWord = words[Math.floor(Math.random() * words.length)].toUpperCase();
-    printWord(targetWord);
-    $("#attempt-count").children().text(attempts);
 
-    console.log(targetWord);
-}
-
-// Fonction pour afficher un mot
-async function printWord(targetWord) {
-    $("#attempt-count").children().text(attempts);
-
-    var row = document.createElement("div");
-    row.classList.add("ligne");
-    $(row).appendTo("#box").hide().fadeIn(500);
-    for (let i = 0; i < targetWord.length; i++) {
-        printLetter(targetWord[i], i, row);
-        await sleep(100);
+    /**
+     * Affiche la ligne en cours : lettres tapées, sinon indices déjà trouvés.
+     * @returns {void}
+     */
+    function afficherLigne() {
+        const cases = grille.children[essai].children;
+        for (let i = 0; i < cible.length; i++) {
+            const caseLettre = cases[i];
+            caseLettre.textContent = (saisie[i] || connues[i] || '').toUpperCase();
+            caseLettre.classList.toggle('indice', !saisie[i] && Boolean(connues[i]));
+            caseLettre.classList.toggle('remplie', Boolean(saisie[i]));
+        }
+        grille.querySelectorAll('.ligne').forEach((ligne, index) => {
+            ligne.classList.toggle('active', index === essai);
+        });
     }
-    var lastRow = $('.ligne:last');
-    $(lastRow).children()[1].focus()
-}
 
-// Fonction pour afficher une lettre
-function printLetter(letter, index, row) {
-    input = document.createElement("input");
-    input.classList.add("letter");
-    input.setAttribute("maxlength", 1);
-    input.setAttribute("onKeyUp", "autotab(this, this.nextSibling, this.previousSibling)");
-    $(input).appendTo(row).hide().fadeIn(500);
-    if (index == 0) {
-        input.value = letter
+    /**
+     * Affiche un message sous la grille.
+     * @param {string} texte Message.
+     * @param {string} [type] '', 'erreur' ou 'succes'.
+     * @returns {void}
+     */
+    function afficherMessage(texte, type = '') {
+        message.textContent = texte;
+        message.className = type;
     }
-    $(input).on("change", function () {
-        var lastRow = $('.ligne:last');
-        checkInputs(lastRow);
+
+    /**
+     * Secoue la ligne en cours (proposition refusée).
+     * @returns {void}
+     */
+    function secouer() {
+        if (mouvementReduit.matches) return;
+        grille.children[essai].animate(SECOUSSE, { duration: 400 });
+    }
+
+    /**
+     * Ajoute une lettre à la proposition.
+     * @param {string} lettre Lettre de a à z.
+     * @returns {void}
+     */
+    function taper(lettre) {
+        if (saisie.length >= cible.length) return;
+        saisie += lettre;
+        afficherMessage('');
+        afficherLigne();
+    }
+
+    /**
+     * Efface la dernière lettre (sauf la première, imposée).
+     * @returns {void}
+     */
+    function effacer() {
+        if (saisie.length <= 1) return;
+        saisie = saisie.slice(0, -1);
+        afficherLigne();
+    }
+
+    /**
+     * Colore la touche du clavier selon le meilleur état connu de la lettre.
+     * @param {string} lettre Lettre.
+     * @param {string} etat 'correct', 'exists' ou 'wrong'.
+     * @returns {void}
+     */
+    function marquerTouche(lettre, etat) {
+        if ((RANG[etat] || 0) <= (RANG[etatTouches[lettre]] || 0)) return;
+        etatTouches[lettre] = etat;
+        const bouton = clavier.querySelector(`[data-touche="${lettre}"]`);
+        if (bouton) {
+            bouton.classList.remove('correct', 'exists', 'wrong');
+            bouton.classList.add(etat);
+        }
+    }
+
+    /**
+     * Fin de partie : message et bouton Rejouer.
+     * @param {boolean} gagne Vrai si le mot a été trouvé.
+     * @returns {void}
+     */
+    function terminer(gagne) {
+        enCours = false;
+        const essais = essai + 1;
+        const pluriel = essais > 1 ? 's' : '';
+        afficherMessage(
+            gagne ? `Bravo ! Trouvé en ${essais} essai${pluriel}.` : `Perdu : le mot était ${cible.toUpperCase()}.`,
+            gagne ? 'succes' : 'erreur'
+        );
+        boutonRejouer.hidden = false;
+        boutonRejouer.focus();
+    }
+
+    /**
+     * Vérifie la proposition, révèle les couleurs lettre par lettre,
+     * puis passe à la ligne suivante ou termine la partie.
+     * @returns {Promise<void>} Résolue après l'animation.
+     */
+    async function valider() {
+        if (saisie.length < cible.length) {
+            afficherMessage(`Il faut un mot de ${cible.length} lettres.`, 'erreur');
+            secouer();
+            return;
+        }
+        if (dico && !dico.has(saisie) && saisie !== cible) {
+            afficherMessage(`« ${saisie.toUpperCase()} » n'est pas dans le dictionnaire.`, 'erreur');
+            secouer();
+            return;
+        }
+
+        verrou = true;
+        const resultat = evaluer(saisie, cible);
+        const cases = grille.children[essai].children;
+        grille.children[essai].classList.remove('active');
+        for (let i = 0; i < cible.length; i++) {
+            cases[i].textContent = saisie[i].toUpperCase();
+            cases[i].classList.remove('indice');
+            cases[i].classList.add(resultat[i]);
+            if (resultat[i] === 'correct') connues[i] = saisie[i];
+            marquerTouche(saisie[i], resultat[i]);
+            await pause(DUREE_LETTRE);
+        }
+        verrou = false;
+
+        if (saisie === cible) {
+            terminer(true);
+            return;
+        }
+        essai++;
+        if (essai >= ESSAIS_MAX) {
+            terminer(false);
+            return;
+        }
+
+        saisie = cible[0];
+        compteur.textContent = essai + 1;
+        afficherLigne();
+    }
+
+    /**
+     * Tire un nouveau mot (différent du précédent) et remet le jeu à zéro.
+     * @returns {Promise<void>} Résolue quand la grille est prête.
+     */
+    async function nouvellePartie() {
+        if (verrou) return;
+        try {
+            await charger();
+        } catch (erreur) {
+            console.error(erreur);
+            afficherMessage('Impossible de charger la liste des mots. Réessayez plus tard.', 'erreur');
+            return;
+        }
+        const precedent = enCours && essai > 0 ? cible.toUpperCase() : '';
+        let mot = cible;
+        while (mot === cible) {
+            mot = mots[Math.floor(Math.random() * mots.length)];
+            if (mots.length < 2) break;
+        }
+        cible = mot;
+        essai = 0;
+        saisie = cible[0];
+        connues = [cible[0]];
+        etatTouches = {};
+        enCours = true;
+        boutonRejouer.hidden = true;
+        compteur.textContent = 1;
+        construireGrille();
+        construireClavier();
+        afficherLigne();
+        afficherMessage(precedent
+            ? `Le mot précédent était ${precedent}.`
+            : `Un mot de ${cible.length} lettres, à vous de jouer !`);
+    }
+
+    /**
+     * Traite une touche (clavier physique ou à l'écran).
+     * @param {string} valeur Lettre, 'Enter' ou 'Backspace'.
+     * @returns {void}
+     */
+    function action(valeur) {
+        if (!enCours || verrou) return;
+        if (valeur === 'Enter') valider();
+        else if (valeur === 'Backspace') effacer();
+        else {
+            const lettre = normaliser(valeur);
+            if (/^[a-z]$/.test(lettre)) taper(lettre);
+        }
+    }
+
+    document.addEventListener('keydown', (evenement) => {
+        if (evenement.ctrlKey || evenement.metaKey || evenement.altKey) return;
+        if (window.Swal && Swal.isVisible()) return;
+        const element = evenement.target instanceof Element ? evenement.target : null;
+        if (element?.closest('input, textarea, select')) return;
+        const { key } = evenement;
+        if (key !== 'Enter' && key !== 'Backspace' && key.length !== 1) return;
+        if (!enCours) {
+            // Partie finie : Entrée relance, où que soit le focus.
+            if (key === 'Enter' && !boutonRejouer.hidden && !element?.closest('button')) {
+                evenement.preventDefault();
+                nouvellePartie();
+            }
+            return;
+        }
+        // Entrée sur un bouton (Jouer, Nouveau mot) garde son comportement normal.
+        if (key === 'Enter' && element?.closest('button')) return;
+        evenement.preventDefault();
+        action(key);
     });
-}
 
-// Fonction pour vérifier si tous les inputs sont remplis
-function checkInputs(row) {
-    var filled = 0;
-    $(row).children().each(function () {
-        if ($(this).val()) {
-            filled++;
+    clavier.addEventListener('click', (evenement) => {
+        const bouton = evenement.target.closest('[data-touche]');
+        if (bouton) {
+            action(bouton.dataset.touche);
+            bouton.blur();
         }
     });
-    if (filled == targetWord.length) {
-        checkWord(row);
-    }
-}
-// Fonction pour vérifier le mot entré par l'utilisateur
-function checkWord(row) {
-    attempts++;
-    var index = 0;
-    userInput = "";
-    $(row).children().each(function () {
-        userInput += $(this).val().toUpperCase();
-        if ($(this).val().toUpperCase() == targetWord[index].toUpperCase()) {
-            $(this).addClass("correct");
-        } else if (targetWord.includes($(this).val().toUpperCase())) {
-            $(this).addClass("exists");
-        } else {
-            $(this).addClass("wrong");
-        }
-        index++;
 
+    el('jouer').addEventListener('click', () => {
+        el('accueil').hidden = true;
+        el('partie').hidden = false;
+        nouvellePartie();
     });
 
-    if (userInput === targetWord) {
-        $("#attempt-count").children().text(attempts);
-        Swal.fire({
-            title: 'Félicitation! Vous avez gagné.',
-            text: "Voulez-vous recommencer une partie?",
-            icon: 'success',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Oui, Rejouer!',
-            cancelButtonText: 'Non'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                resetGame();
-            }
-        })
-    } else if (attempts <= 6){
-        printWord(targetWord);
-    } else {
-        Swal.fire({
-            title: 'Pas de chance! vous n\avez pas trouvé le mot',
-            text: `Le mot était '${targetWord}'. Voulez-vous recommencer une partie?`,
-            icon: 'error',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Oui, Rejouer!',
-            cancelButtonText: 'Non'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                resetGame();
-            }
-        })
-    }
-}
+    boutonRejouer.addEventListener('click', () => nouvellePartie());
 
+    el('nouveau-mot').addEventListener('click', (evenement) => {
+        evenement.currentTarget.blur();
+        nouvellePartie();
+    });
 
-function startGame() {
-    $(".play-btn").fadeOut("slow");
-    $('.game').removeClass("justify-content-center");
-    $(".game").css({    justifyContent: "space-between",
-                        backgroundColor: "#e5e5e5", 
-                        border: "solid 1px gray",
-                        borderRadius: "10px",
-                        color: "black",
-                        fontWeight: "bold",
-                        fontSize: "25px"});
-
-    var div = document.createElement("div");
-    div.setAttribute("id", "bottom-game")
-    $(".game").append(div);
-
-    var div1 = document.createElement("div");
-    div1.setAttribute("id", "attempt-count");
-    $(div).append(div1);
-    div1.innerHTML = "tentatives : <p></p> /6";
-
-    var btn = document.createElement("button");
-    btn.setAttribute("id", "reset-btn");
-    btn.setAttribute("onClick", "resetGame()");
-    $(div).append(btn);
-    btn.innerHTML = 'Nouveau mot!'
-
-
-
-    chooseWord();
-}
-
-function resetGame() {
-    $('#box').children().remove();
-    $('#attempt-count').remove();
-    $('#reset-btn').remove();
-
-    attempts = 0;
-
-    startGame();
-}
-
-
+    // Précharge les listes dès l'arrivée sur la page.
+    charger().catch((erreur) => console.error(erreur));
+})();
