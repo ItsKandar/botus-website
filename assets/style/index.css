@@ -190,16 +190,6 @@
     100% { transform: rotateX(0); }
 }
 
-.ligne.secoue {
-    animation: secoue .4s;
-}
-
-@keyframes secoue {
-    0%, 100% { transform: translateX(0); }
-    20%, 60% { transform: translateX(-8px); }
-    40%, 80% { transform: translateX(8px); }
-}
-
 #message {
     min-height: 1.6em;
     margin: .25rem 0 0;

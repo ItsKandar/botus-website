@@ -1,3 +1,4 @@
+/* global Swal */
 'use strict';
 
 // Jeu Botus : même règles que le bot Discord (ItsKandar/motus).
@@ -11,13 +12,27 @@
     const CLAVIER = ['azertyuiop', 'qsdfghjklm', 'wxcvbn'];
     const DUREE_LETTRE = 250; // ms entre deux lettres révélées
     const RANG = { wrong: 1, exists: 2, correct: 3 };
+    const SECOUSSE = [
+        { transform: 'translateX(0)' },
+        { transform: 'translateX(-8px)' },
+        { transform: 'translateX(8px)' },
+        { transform: 'translateX(-8px)' },
+        { transform: 'translateX(8px)' },
+        { transform: 'translateX(0)' },
+    ];
 
+    /**
+     * Raccourci pour document.getElementById.
+     * @param {string} id Identifiant de l'élément.
+     * @returns {HTMLElement} L'élément trouvé.
+     */
     const el = (id) => document.getElementById(id);
     const grille = el('grille');
     const message = el('message');
     const clavier = el('clavier');
     const compteur = el('essai');
     const boutonRejouer = el('rejouer');
+    const mouvementReduit = window.matchMedia('(prefers-reduced-motion: reduce)');
 
     let mots = null;          // mots à deviner
     let dico = null;          // Set des mots acceptés (null : pas de vérification)
@@ -31,32 +46,55 @@
     let enCours = false;
     let verrou = false;       // pendant l'animation
 
+    /**
+     * Met en minuscules et retire les accents (é → e, ç → c).
+     * @param {string} texte Texte à normaliser.
+     * @returns {string} Texte normalisé.
+     */
     const normaliser = (texte) =>
         texte.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 
+    /**
+     * Attend quelques millisecondes.
+     * @param {number} ms Durée.
+     * @returns {Promise<void>} Résolue après la durée.
+     */
+    const pause = (ms) => new Promise((resoudre) => setTimeout(resoudre, ms));
+
+    /**
+     * Charge (une seule fois) les mots à deviner et le dictionnaire.
+     * Sans dictionnaire, le jeu reste jouable : toute proposition est acceptée.
+     * @returns {Promise<void>} Résolue quand les listes sont prêtes.
+     */
     function charger() {
         chargement ??= Promise.all([
-            fetch('assets/mots/mots.json').then((r) => {
-                if (!r.ok) throw new Error(`mots.json : HTTP ${r.status}`);
-                return r.json();
+            fetch('assets/mots/mots.json').then((reponse) => {
+                if (!reponse.ok) throw new Error(`mots.json : HTTP ${reponse.status}`);
+                return reponse.json();
             }),
             fetch('assets/mots/dico.txt')
-                .then((r) => (r.ok ? r.text() : Promise.reject(new Error(`dico.txt : HTTP ${r.status}`))))
-                .then((t) => new Set(t.split('\n').filter(Boolean)))
-                .catch((e) => {
-                    // Sans dictionnaire, le jeu reste jouable : on accepte tout mot.
-                    console.warn('Dictionnaire indisponible, propositions non vérifiées.', e);
+                .then((reponse) => (reponse.ok
+                    ? reponse.text()
+                    : Promise.reject(new Error(`dico.txt : HTTP ${reponse.status}`))))
+                .then((texte) => new Set(texte.split('\n').filter(Boolean)))
+                .catch((erreur) => {
+                    console.warn('Dictionnaire indisponible, propositions non vérifiées.', erreur);
                     return null;
                 }),
-        ]).then(([m, d]) => {
-            mots = m;
-            dico = d;
+        ]).then(([listeMots, listeDico]) => {
+            mots = listeMots;
+            dico = listeDico;
         });
         return chargement;
     }
 
-    // Couleurs façon Motus, en tenant compte des lettres en double :
-    // d'abord les bien placées, puis les mal placées sur ce qui reste.
+    /**
+     * Couleurs façon Motus, en tenant compte des lettres en double :
+     * d'abord les bien placées, puis les mal placées sur ce qui reste.
+     * @param {string} proposition Mot proposé.
+     * @param {string} mot Mot à deviner.
+     * @returns {string[]} 'correct', 'exists' ou 'wrong' pour chaque lettre.
+     */
     function evaluer(proposition, mot) {
         const resultat = Array(mot.length).fill('wrong');
         const restantes = {};
@@ -73,13 +111,17 @@
         return resultat;
     }
 
+    /**
+     * Crée la grille vide : 6 lignes de la longueur du mot.
+     * @returns {void}
+     */
     function construireGrille() {
         grille.replaceChildren();
         grille.style.setProperty('--colonnes', cible.length);
-        for (let l = 0; l < ESSAIS_MAX; l++) {
+        for (let ligneIndex = 0; ligneIndex < ESSAIS_MAX; ligneIndex++) {
             const ligne = document.createElement('div');
             ligne.className = 'ligne';
-            for (let c = 0; c < cible.length; c++) {
+            for (let colonne = 0; colonne < cible.length; colonne++) {
                 const caseLettre = document.createElement('div');
                 caseLettre.className = 'case';
                 ligne.append(caseLettre);
@@ -88,52 +130,82 @@
         }
     }
 
+    /**
+     * Crée une touche du clavier à l'écran.
+     * @param {string} texte Texte affiché.
+     * @param {string} valeur Lettre ou nom de touche (Enter, Backspace).
+     * @param {string} [classe] Classe CSS supplémentaire.
+     * @param {string} [label] Libellé accessible.
+     * @returns {HTMLButtonElement} La touche.
+     */
+    function touche(texte, valeur, classe, label) {
+        const bouton = document.createElement('button');
+        bouton.type = 'button';
+        bouton.className = classe ? `touche ${classe}` : 'touche';
+        bouton.textContent = texte;
+        bouton.dataset.touche = valeur;
+        if (label) bouton.setAttribute('aria-label', label);
+        return bouton;
+    }
+
+    /**
+     * Crée le clavier AZERTY à l'écran.
+     * @returns {void}
+     */
     function construireClavier() {
         clavier.replaceChildren();
-        CLAVIER.forEach((rangee, i) => {
-            const div = document.createElement('div');
-            div.className = 'rangee';
-            if (i === 2) div.append(touche('Entrée', 'Enter', 'large'));
-            for (const lettre of rangee) div.append(touche(lettre.toUpperCase(), lettre));
-            if (i === 2) div.append(touche('⌫', 'Backspace', 'large', 'Effacer'));
-            clavier.append(div);
+        CLAVIER.forEach((lettres, index) => {
+            const rangee = document.createElement('div');
+            rangee.className = 'rangee';
+            if (index === 2) rangee.append(touche('Entrée', 'Enter', 'large'));
+            for (const lettre of lettres) rangee.append(touche(lettre.toUpperCase(), lettre));
+            if (index === 2) rangee.append(touche('⌫', 'Backspace', 'large', 'Effacer'));
+            clavier.append(rangee);
         });
     }
 
-    function touche(texte, valeur, classe, label) {
-        const b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'touche' + (classe ? ` ${classe}` : '');
-        b.textContent = texte;
-        b.dataset.touche = valeur;
-        if (label) b.setAttribute('aria-label', label);
-        return b;
-    }
-
-    // Affiche la ligne en cours : lettres tapées, sinon indices déjà trouvés.
+    /**
+     * Affiche la ligne en cours : lettres tapées, sinon indices déjà trouvés.
+     * @returns {void}
+     */
     function afficherLigne() {
         const cases = grille.children[essai].children;
         for (let i = 0; i < cible.length; i++) {
-            const c = cases[i];
-            c.textContent = (saisie[i] || connues[i] || '').toUpperCase();
-            c.classList.toggle('indice', !saisie[i] && Boolean(connues[i]));
-            c.classList.toggle('remplie', Boolean(saisie[i]));
+            const caseLettre = cases[i];
+            caseLettre.textContent = (saisie[i] || connues[i] || '').toUpperCase();
+            caseLettre.classList.toggle('indice', !saisie[i] && Boolean(connues[i]));
+            caseLettre.classList.toggle('remplie', Boolean(saisie[i]));
         }
-        grille.querySelectorAll('.ligne').forEach((l, i) => l.classList.toggle('active', i === essai));
+        grille.querySelectorAll('.ligne').forEach((ligne, index) => {
+            ligne.classList.toggle('active', index === essai);
+        });
     }
 
+    /**
+     * Affiche un message sous la grille.
+     * @param {string} texte Message.
+     * @param {string} [type] '', 'erreur' ou 'succes'.
+     * @returns {void}
+     */
     function afficherMessage(texte, type = '') {
         message.textContent = texte;
         message.className = type;
     }
 
+    /**
+     * Secoue la ligne en cours (proposition refusée).
+     * @returns {void}
+     */
     function secouer() {
-        const ligne = grille.children[essai];
-        ligne.classList.remove('secoue');
-        void ligne.offsetWidth; // relance l'animation
-        ligne.classList.add('secoue');
+        if (mouvementReduit.matches) return;
+        grille.children[essai].animate(SECOUSSE, { duration: 400 });
     }
 
+    /**
+     * Ajoute une lettre à la proposition.
+     * @param {string} lettre Lettre de a à z.
+     * @returns {void}
+     */
     function taper(lettre) {
         if (saisie.length >= cible.length) return;
         saisie += lettre;
@@ -141,12 +213,54 @@
         afficherLigne();
     }
 
+    /**
+     * Efface la dernière lettre (sauf la première, imposée).
+     * @returns {void}
+     */
     function effacer() {
-        if (saisie.length <= 1) return; // la première lettre est imposée
+        if (saisie.length <= 1) return;
         saisie = saisie.slice(0, -1);
         afficherLigne();
     }
 
+    /**
+     * Colore la touche du clavier selon le meilleur état connu de la lettre.
+     * @param {string} lettre Lettre.
+     * @param {string} etat 'correct', 'exists' ou 'wrong'.
+     * @returns {void}
+     */
+    function marquerTouche(lettre, etat) {
+        if ((RANG[etat] || 0) <= (RANG[etatTouches[lettre]] || 0)) return;
+        etatTouches[lettre] = etat;
+        const bouton = clavier.querySelector(`[data-touche="${lettre}"]`);
+        if (bouton) {
+            bouton.classList.remove('correct', 'exists', 'wrong');
+            bouton.classList.add(etat);
+        }
+    }
+
+    /**
+     * Fin de partie : message et bouton Rejouer.
+     * @param {boolean} gagne Vrai si le mot a été trouvé.
+     * @returns {void}
+     */
+    function terminer(gagne) {
+        enCours = false;
+        const essais = essai + 1;
+        const pluriel = essais > 1 ? 's' : '';
+        afficherMessage(
+            gagne ? `Bravo ! Trouvé en ${essais} essai${pluriel}.` : `Perdu : le mot était ${cible.toUpperCase()}.`,
+            gagne ? 'succes' : 'erreur'
+        );
+        boutonRejouer.hidden = false;
+        boutonRejouer.focus();
+    }
+
+    /**
+     * Vérifie la proposition, révèle les couleurs lettre par lettre,
+     * puis passe à la ligne suivante ou termine la partie.
+     * @returns {Promise<void>} Résolue après l'animation.
+     */
     async function valider() {
         if (saisie.length < cible.length) {
             afficherMessage(`Il faut un mot de ${cible.length} lettres.`, 'erreur');
@@ -169,54 +283,44 @@
             cases[i].classList.add(resultat[i]);
             if (resultat[i] === 'correct') connues[i] = saisie[i];
             marquerTouche(saisie[i], resultat[i]);
-            await new Promise((r) => setTimeout(r, DUREE_LETTRE));
+            await pause(DUREE_LETTRE);
         }
         verrou = false;
 
-        if (saisie === cible) return terminer(true);
+        if (saisie === cible) {
+            terminer(true);
+            return;
+        }
         essai++;
-        if (essai >= ESSAIS_MAX) return terminer(false);
+        if (essai >= ESSAIS_MAX) {
+            terminer(false);
+            return;
+        }
 
         saisie = cible[0];
         compteur.textContent = essai + 1;
         afficherLigne();
     }
 
-    function marquerTouche(lettre, etat) {
-        if ((RANG[etat] || 0) <= (RANG[etatTouches[lettre]] || 0)) return;
-        etatTouches[lettre] = etat;
-        const b = clavier.querySelector(`[data-touche="${lettre}"]`);
-        if (b) {
-            b.classList.remove('correct', 'exists', 'wrong');
-            b.classList.add(etat);
-        }
-    }
-
-    function terminer(gagne) {
-        enCours = false;
-        const essais = essai + 1;
-        afficherMessage(
-            gagne ? `Bravo ! Trouvé en ${essais} essai${essais > 1 ? 's' : ''}.` : `Perdu : le mot était ${cible.toUpperCase()}.`,
-            gagne ? 'succes' : 'erreur'
-        );
-        boutonRejouer.hidden = false;
-        boutonRejouer.focus();
-    }
-
+    /**
+     * Tire un nouveau mot (différent du précédent) et remet le jeu à zéro.
+     * @returns {Promise<void>} Résolue quand la grille est prête.
+     */
     async function nouvellePartie() {
         if (verrou) return;
         try {
             await charger();
-        } catch (e) {
-            console.error(e);
+        } catch (erreur) {
+            console.error(erreur);
             afficherMessage('Impossible de charger la liste des mots. Réessayez plus tard.', 'erreur');
             return;
         }
         const precedent = enCours && essai > 0 ? cible.toUpperCase() : '';
-        let mot;
-        do {
+        let mot = cible;
+        while (mot === cible) {
             mot = mots[Math.floor(Math.random() * mots.length)];
-        } while (mots.length > 1 && mot === cible);
+            if (mots.length < 2) break;
+        }
         cible = mot;
         essai = 0;
         saisie = cible[0];
@@ -228,9 +332,16 @@
         construireGrille();
         construireClavier();
         afficherLigne();
-        afficherMessage(precedent ? `Le mot précédent était ${precedent}.` : `Un mot de ${cible.length} lettres, à vous de jouer !`);
+        afficherMessage(precedent
+            ? `Le mot précédent était ${precedent}.`
+            : `Un mot de ${cible.length} lettres, à vous de jouer !`);
     }
 
+    /**
+     * Traite une touche (clavier physique ou à l'écran).
+     * @param {string} valeur Lettre, 'Enter' ou 'Backspace'.
+     * @returns {void}
+     */
     function action(valeur) {
         if (!enCours || verrou) return;
         if (valeur === 'Enter') valider();
@@ -241,32 +352,32 @@
         }
     }
 
-    document.addEventListener('keydown', (e) => {
-        if (e.ctrlKey || e.metaKey || e.altKey) return;
+    document.addEventListener('keydown', (evenement) => {
+        if (evenement.ctrlKey || evenement.metaKey || evenement.altKey) return;
         if (window.Swal && Swal.isVisible()) return;
-        const elt = e.target instanceof Element ? e.target : null;
-        if (elt?.closest('input, textarea, select')) return;
-        if (e.key === 'Enter' || e.key === 'Backspace' || e.key.length === 1) {
-            if (!enCours) {
-                // Partie finie : Entrée relance, où que soit le focus.
-                if (e.key === 'Enter' && !boutonRejouer.hidden && !elt?.closest('button')) {
-                    e.preventDefault();
-                    nouvellePartie();
-                }
-                return;
+        const element = evenement.target instanceof Element ? evenement.target : null;
+        if (element?.closest('input, textarea, select')) return;
+        const { key } = evenement;
+        if (key !== 'Enter' && key !== 'Backspace' && key.length !== 1) return;
+        if (!enCours) {
+            // Partie finie : Entrée relance, où que soit le focus.
+            if (key === 'Enter' && !boutonRejouer.hidden && !element?.closest('button')) {
+                evenement.preventDefault();
+                nouvellePartie();
             }
-            // Entrée sur un bouton (Jouer, Nouveau mot) garde son comportement normal.
-            if (e.key === 'Enter' && elt?.closest('button')) return;
-            e.preventDefault();
-            action(e.key);
+            return;
         }
+        // Entrée sur un bouton (Jouer, Nouveau mot) garde son comportement normal.
+        if (key === 'Enter' && element?.closest('button')) return;
+        evenement.preventDefault();
+        action(key);
     });
 
-    clavier.addEventListener('click', (e) => {
-        const b = e.target.closest('[data-touche]');
-        if (b) {
-            action(b.dataset.touche);
-            b.blur();
+    clavier.addEventListener('click', (evenement) => {
+        const bouton = evenement.target.closest('[data-touche]');
+        if (bouton) {
+            action(bouton.dataset.touche);
+            bouton.blur();
         }
     });
 
@@ -278,11 +389,11 @@
 
     boutonRejouer.addEventListener('click', () => nouvellePartie());
 
-    el('nouveau-mot').addEventListener('click', (e) => {
-        e.currentTarget.blur();
+    el('nouveau-mot').addEventListener('click', (evenement) => {
+        evenement.currentTarget.blur();
         nouvellePartie();
     });
 
     // Précharge les listes dès l'arrivée sur la page.
-    charger().catch(() => {});
+    charger().catch((erreur) => console.error(erreur));
 })();

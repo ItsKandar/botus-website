@@ -1,5 +1,6 @@
 <?php
-// En-tête commun. Avant le require : $titre (obligatoire), $css (feuilles propres à la page).
+// En-tête commun. Avant le require : $titre et $css (feuilles propres à la page).
+$titre = $titre ?? 'Botus';
 $css = $css ?? [];
 ?>
 <meta charset="UTF-8">
